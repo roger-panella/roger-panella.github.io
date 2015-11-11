@@ -44,6 +44,7 @@ var allNotes = noteSet.length;
 
 function chordQuestion() {
   var newDiv = document.createElement("div");
+  newDiv.id = "chordQuestion";
   var chordQuestion = document.createTextNode("Spell the chord " + i[0] + ' ' + i[3]);
   newDiv.appendChild(chordQuestion);
   var currentDiv = document.getElementById("div1");
@@ -101,6 +102,21 @@ var chordResult = function () {  // function to randomly run either buildMajorCh
 var i = chordResult();
 console.log(i);
 
+function clearBetweenQuestions() {
+    var questionClear = document.getElementById("chordQuestion");
+    questionClear.parentNode.removeChild(questionClear);
+    var textboxClear = document.getElementById("textbox");
+    textboxClear.parentNode.removeChild(textboxClear);
+    var buttonClear = document.getElementById("theButton");
+    buttonClear.parentNode.removeChild(buttonClear);
+    var responseClear = document.getElementById("rightOrWrong");
+    responseClear.parentNode.removeChild(responseClear);
+};
+
+function delayedClear() {
+  timeoutClear = window.setTimeout(clearBetweenQuestions, 1500);
+};
+
 function compareAnswer() {   // get answer from textbox, compare, return result
     document.getElementById("theButton").addEventListener("click", function() {
     var userAnswer = document.getElementById("textbox").value;
@@ -112,7 +128,7 @@ function compareAnswer() {   // get answer from textbox, compare, return result
     if (userAnswerArray[0] == i[0] && userAnswerArray[1] == i[1] && userAnswerArray[2] == i[2]) {
       var rightOrWrong = document.createElement('p');
       rightOrWrong.id = "rightOrWrong";
-      var responseText = document.createTextNode('You got it right!  Let\s try another!');
+      var responseText = document.createTextNode('You got it right!  You\'re score is now  ' + playerOneScore + 'Let\'s try another!');
       rightOrWrong.appendChild(responseText);
       var responseDiv = document.getElementById('response');
       responseDiv.appendChild(rightOrWrong);
@@ -126,8 +142,18 @@ function compareAnswer() {   // get answer from textbox, compare, return result
       var responseDiv = document.getElementById('response');
       responseDiv.appendChild(rightOrWrong);
     }
-
+    delayedClear();
     return userAnswerArray;
   });
 };
-compareAnswer();
+// compareAnswer();
+
+// function playTheGame () {
+//   for (var i = 0;playerOneScore < 10;i++) {
+//     var i = chordResult();
+//     chordQuestion();
+//     textFieldButton();
+//     compareAnswer();
+//   };
+// };
+// playTheGame();
