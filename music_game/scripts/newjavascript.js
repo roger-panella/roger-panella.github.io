@@ -110,15 +110,21 @@ function compareAnswer() {   // get answer from textbox, compare, return result
     chordToCompare = i.pop();
     console.log(i);
     if (userAnswerArray[0] == i[0] && userAnswerArray[1] == i[1] && userAnswerArray[2] == i[2]) {
-      responseDiv = document.getElementById('response');
-      responseText = document.createTextNode('You got it right! Try another!');
-      responseDiv.appendChild(responseText);
+      var rightOrWrong = document.createElement('p');
+      rightOrWrong.id = "rightOrWrong";
+      var responseText = document.createTextNode('You got it right!  Let\s try another!');
+      rightOrWrong.appendChild(responseText);
+      var responseDiv = document.getElementById('response');
+      responseDiv.appendChild(rightOrWrong);
       playerOneScore = (playerOneScore + 1);
       console.log(playerOneScore);
     } else if (userAnswerArray[0] != i[0] || userAnswerArray[1] != i[1] || userAnswerArray[2] != i[2]){
-      responseDiv = document.getElementById('response');
-      responseText = document.createTextNode('Wrong');
-      responseDiv.appendChild(responseText);
+      var rightOrWrong = document.createElement('p');
+      rightOrWrong.id = "rightOrWrong";
+      var responseText = document.createTextNode('Wrong');
+      rightOrWrong.appendChild(responseText);
+      var responseDiv = document.getElementById('response');
+      responseDiv.appendChild(rightOrWrong);
     }
 
     return userAnswerArray;
