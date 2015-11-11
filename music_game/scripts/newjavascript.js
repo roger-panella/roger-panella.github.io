@@ -14,16 +14,28 @@ function intro() {
 };
 intro();
 
-
 document.getElementById("startButton").addEventListener("click", function() {
     var removeIntro = document.getElementById('intro');
     removeIntro.remove();
-    chordQuestion();
-    textFieldButton();
-    compareAnswer();
+    buildQuestionUI();
 });
 
+// // function buildQuestionUI() {
+// //   chordQuestion();
+// //   textFieldButton();
+// //   compareAnswer();
+// };
+
 } //end window.onload
+
+function buildQuestionUI() {
+  // var c = chordResult();
+  chordQuestion();
+  textFieldButton();
+  compareAnswer();
+};
+
+var playerNumber;
 var playerOneScore = 0;
 var playerTwoScore = 0;
 var sharpNotes = ['A','A#','B','C','C#','D','D#','E','F','F#','G','G#'];
@@ -43,12 +55,15 @@ if (j == 1) {                 // random integer to determine whether to use shar
 var allNotes = noteSet.length;
 
 function chordQuestion() {
+  var c = chordResult();
+  console.log('chordQuestion is running');
   var newDiv = document.createElement("div");
   newDiv.id = "chordQuestion";
-  var chordQuestion = document.createTextNode("Spell the chord " + i[0] + ' ' + i[3]);
+  var chordQuestion = document.createTextNode("Spell the chord " + c[0] + ' ' + c[3]);
   newDiv.appendChild(chordQuestion);
   var currentDiv = document.getElementById("div1");
   document.body.insertBefore(newDiv, currentDiv);
+  console.log(c);
 };
 
 function textFieldButton() {
@@ -82,16 +97,19 @@ var chordBuilder = {
     majorChord.push(noteSet[((g + 3) % allNotes)]);
     console.log(majorChord);
     return majorChord;
-  },
+  }
 };
 
 var chordResult = function () {  // function to randomly run either buildMajorChord or buildMinorChord
   var randomInt = getRandomInt(1,2);
+  console.log('chordResult is running');
   if (randomInt == 1) {
+      console.log('chordResult build a major chord');
       var chordResult = chordBuilder.buildMajorChord();
       chordResult.push('Major');
       return chordResult;
     } else if (randomInt == 2) {
+      console.log('chordResult build a minor chord');
       chordBuilder.buildMinorChord();
       var chordResult = chordBuilder.buildMinorChord();
       chordResult.push('Minor');
@@ -99,8 +117,8 @@ var chordResult = function () {  // function to randomly run either buildMajorCh
     }
 };
 
-var i = chordResult();
-console.log(i);
+var c = chordResult();
+console.log(c);
 
 function clearBetweenQuestions() {
     var questionClear = document.getElementById("chordQuestion");
@@ -111,10 +129,17 @@ function clearBetweenQuestions() {
     buttonClear.parentNode.removeChild(buttonClear);
     var responseClear = document.getElementById("rightOrWrong");
     responseClear.parentNode.removeChild(responseClear);
+    // }
+
+    // re-draw
+
+    // if score > high score
+    // do something else to show winning screen
 };
 
 function delayedClear() {
   timeoutClear = window.setTimeout(clearBetweenQuestions, 1500);
+  timeoutLoad = window.setTimeout(buildQuestionUI,3000);
 };
 
 function compareAnswer() {   // get answer from textbox, compare, return result
@@ -123,18 +148,16 @@ function compareAnswer() {   // get answer from textbox, compare, return result
     var userAnswerUpper = userAnswer.toLocaleUpperCase();
     var userAnswerArray = userAnswerUpper.split(',');
     console.log(userAnswerArray);
-    chordToCompare = i.pop();
-    console.log(i);
-    if (userAnswerArray[0] == i[0] && userAnswerArray[1] == i[1] && userAnswerArray[2] == i[2]) {
+    console.log(c);
+    if (userAnswerArray[0] == c[0] && userAnswerArray[1] == c[1] && userAnswerArray[2] == c[2]) {
       var rightOrWrong = document.createElement('p');
       rightOrWrong.id = "rightOrWrong";
-      var responseText = document.createTextNode('You got it right!  You\'re score is now  ' + playerOneScore + 'Let\'s try another!');
+      var responseText = document.createTextNode('You got it right!  You\'re score is nowLet\'s try another!');
       rightOrWrong.appendChild(responseText);
       var responseDiv = document.getElementById('response');
       responseDiv.appendChild(rightOrWrong);
-      playerOneScore = (playerOneScore + 1);
       console.log(playerOneScore);
-    } else if (userAnswerArray[0] != i[0] || userAnswerArray[1] != i[1] || userAnswerArray[2] != i[2]){
+    } else if (userAnswerArray[0] != c[0] || userAnswerArray[1] != c[1] || userAnswerArray[2] != c[2]){
       var rightOrWrong = document.createElement('p');
       rightOrWrong.id = "rightOrWrong";
       var responseText = document.createTextNode('Wrong');
@@ -147,13 +170,3 @@ function compareAnswer() {   // get answer from textbox, compare, return result
   });
 };
 // compareAnswer();
-
-// function playTheGame () {
-//   for (var i = 0;playerOneScore < 10;i++) {
-//     var i = chordResult();
-//     chordQuestion();
-//     textFieldButton();
-//     compareAnswer();
-//   };
-// };
-// playTheGame();
