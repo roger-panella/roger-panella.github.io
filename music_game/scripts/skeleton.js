@@ -30,6 +30,7 @@ document.getElementById("startButton").addEventListener("click", function() {
 
 function buildQuestionUI() {
   // var c = chordResult();
+  displayScore();
   chordQuestion();
   textFieldButton();
   compareAnswer();
@@ -55,6 +56,13 @@ function getRandomInt(min, max) {   // random integer function
 
 var j;
 var allNotes;
+var c;
+
+function displayScore() {
+  scoreDisplay = document.getElementById('div1');
+  var currentScore = document.createTextNode('Score - ' + playerOneScore);
+  scoreDisplay.appendChild(currentScore);
+}
 
 function chordQuestion() {
   c = chordResult();
@@ -134,9 +142,6 @@ var chordResult = function () {  // function to randomly run either buildMajorCh
     }
 };
 
-var c;
-console.log(c);
-
 function clearBetweenQuestions() {
     var questionClear = document.getElementById("chordQuestion");
     questionClear.parentNode.removeChild(questionClear);
@@ -146,30 +151,31 @@ function clearBetweenQuestions() {
     buttonClear.parentNode.removeChild(buttonClear);
     var responseClear = document.getElementById("rightOrWrong");
     responseClear.parentNode.removeChild(responseClear);
-    // }
-
-    // re-draw
-
-    // if score > high score
-    // do something else to show winning screen
+    document.getElementById("div1").innerHTML = "";
 };
 
 function delayedClear() {
   timeoutClear = window.setTimeout(clearBetweenQuestions, 1500);
-  timeoutLoad = window.setTimeout(buildQuestionUI,3000);
+  if (playerOneScore < 10) {
+    timeoutLoad = window.setTimeout(buildQuestionUI,3000)
+  } else if (playerOneScore = 10) {
+    console.log("You Won!")
+  }
 };
 
 function compareAnswer() {   // get answer from textbox, compare, return result
     document.getElementById("theButton").addEventListener("click", function() {
     var userAnswer = document.getElementById("textbox").value;
-    var userAnswerUpper = userAnswer.toLocaleUpperCase();
-    var userAnswerArray = userAnswerUpper.split(',');
+    // var userAnswerUpper = userAnswer.toLocaleUpperCase();
+    // var userAnswerArray = userAnswerUpper.split(',');
+    var userAnswerArray = userAnswer.split(',');
     console.log(userAnswerArray);
     console.log(c);
     if (userAnswerArray[0] == c[0] && userAnswerArray[1] == c[1] && userAnswerArray[2] == c[2]) {
+      playerOneScore = playerOneScore + 1;
       var rightOrWrong = document.createElement('p');
       rightOrWrong.id = "rightOrWrong";
-      var responseText = document.createTextNode('You got it right!  You\'re score is nowLet\'s try another!');
+      var responseText = document.createTextNode('You got it right!  You\'re score is now ' + playerOneScore + '. Let\'s try another!');
       rightOrWrong.appendChild(responseText);
       var responseDiv = document.getElementById('response');
       responseDiv.appendChild(rightOrWrong);
