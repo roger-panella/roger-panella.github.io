@@ -55,14 +55,14 @@ if (j == 1) {                 // random integer to determine whether to use shar
 var allNotes = noteSet.length;
 
 function chordQuestion() {
-  var c = chordResult();
+  // var c = chordResult();
   console.log('chordQuestion is running');
   var newDiv = document.createElement("div");
   newDiv.id = "chordQuestion";
   var chordQuestion = document.createTextNode("Spell the chord " + c[0] + ' ' + c[3]);
   newDiv.appendChild(chordQuestion);
   var currentDiv = document.getElementById("div1");
-  document.body.insertBefore(newDiv, currentDiv);
+  document.body.insertBefore(newDiv,currentDiv);
   console.log(c);
 };
 
