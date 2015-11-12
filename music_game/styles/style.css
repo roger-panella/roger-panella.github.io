@@ -1,0 +1,116 @@
+body {
+  background-color: #775122; }
+
+button {
+  padding: 10px 40px;
+  margin: 0px 10px 10px 0px;
+  float: left;
+  border-radius: 10px;
+  font-family: 'Helvetica', cursive;
+  font-size: 25px;
+  color: #FFF;
+  text-decoration: none;
+  background-color: #3498DB;
+  border-bottom: 5px solid #2980B9;
+  text-shadow: 0px -2px #2980B9;
+  /* Animation */
+  transition: all 0.1s;
+  -webkit-transition: all 0.1s; }
+
+button:hover {
+  text-decoration: none;
+  color: #fff; }
+
+button:active {
+  transform: translate(0px, 5px); }
+
+input {
+  height: 35px;
+  width: 300px; }
+
+input[type="text"] {
+  font-family: helvetica;
+  font-size: 25px; }
+
+#chordQuestion {
+  color: #dfdcdc;
+  font-family: helvetica;
+  font-size: 40px;
+  text-shadow: 1px 1px 1px #3297bd;
+  font-weight: 100;
+  margin-top: 300px; }
+
+#div1 {
+  color: #dfdcdc;
+  font-family: helvetica;
+  font-size: 40px;
+  text-shadow: 1px 1px 1px #3297bd;
+  font-weight: 100;
+  position: absolute;
+  top: 20px;
+  right: 20px; }
+
+#intro {
+  color: #dfdcdc;
+  font-family: helvetica;
+  font-size: 40px;
+  text-shadow: 1px 1px 1px #3297bd;
+  font-weight: 100;
+  margin-left: auto;
+  margin-right: auto;
+  width: 90%; }
+
+#introButton {
+  width: 20%;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 100px; }
+
+#chordQuestion {
+  width: 20%;
+  margin-left: auto;
+  margin-right: auto; }
+
+#textBoxDiv {
+  width: 20%;
+  margin-left: auto;
+  margin-right: auto; }
+
+#submitButton {
+  width: 20%;
+  margin-left: auto;
+  margin-right: auto; }
+
+#winningText {
+  color: #dfdcdc;
+  font-family: helvetica;
+  font-size: 40px;
+  text-shadow: 1px 1px 1px #3297bd;
+  font-weight: 100; }
+
+#wonGameMessage {
+  display: block;
+  width: 30%;
+  margin-left: auto;
+  margin-right: auto; }
+
+#response {
+  color: #dfdcdc;
+  font-family: helvetica;
+  font-size: 25px;
+  text-shadow: 1px 1px 1px #3297bd;
+  font-weight: 100;
+  display: block;
+  width: 20%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 100px; }
+
+#theButton {
+  margin-top: 20px; }
+
+#textbox {
+  margin-top: 20px; }
+
+/*# sourceMappingURL=style.css.map */

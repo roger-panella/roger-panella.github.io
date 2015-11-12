@@ -1,19 +1,24 @@
 window.onload = function () {
 
+//Add elements and content to Dom
 function intro() {
     var introScreen = document.getElementById('intro');
     var introPar = document.createElement('p');
     introPar.id = 'introParagraph';
-    introPar.innerHTML = "Welcome to Spell the Chord, a music theory game.  Each player will get a major or minor chord to spell.  Enter the three notes that make up the chord.  If you're right, you get one point and your turn continues.  If you spell a chord wrong, your turn is over.  First player to get ten points wins.  Ready?";
+    introPar.innerHTML = "Ready for a music theory game?  Spell each major or minor chord to get a point.  Get 10 points and you WIN AT CHORDS.  Ready?";
     introScreen.appendChild(introPar);
-    var firstButton = document.getElementById('intro');
+    var introButton = document.createElement("div");
+    introButton.id = "introButton";
+    document.getElementById('intro').appendChild(introButton);
+    var firstButton = document.getElementById('introButton');
     var startButton = document.createElement('button');
-    startButton.innerHTML = "Start!";
+    startButton.innerHTML = "Start Playing";
     startButton.id = 'startButton';
-    firstButton.appendChild(startButton);
+    introButton.appendChild(startButton);
 };
 intro();
 
+//Start game after user presses "Start" button
 document.getElementById("startButton").addEventListener("click", function() {
     var removeIntro = document.getElementById('intro');
     removeIntro.remove();
@@ -22,6 +27,22 @@ document.getElementById("startButton").addEventListener("click", function() {
 
 } //end window.onload
 
+
+//Define global variables
+var playerOneScore = 8;
+var sharpNotes = ['A','A#','B','C','C#','D','D#','E','F','F#','G','G#'];
+var flatNotes = ['A','Bb','B','C','Db','D','Eb','E','F','Gb','G','Ab'];
+
+var j;
+var allNotes;
+var c;
+
+//Random integer function for use in chord building
+function getRandomInt(min, max) {   // random integer function
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+};
+
+// Run gameplay
 function buildQuestionUI() {
   displayScore();
   chordQuestion();
@@ -29,26 +50,14 @@ function buildQuestionUI() {
   compareAnswer();
 };
 
-var playerNumber;
-var playerOneScore = 0;
-var playerTwoScore = 0;
-var sharpNotes = ['A','A#','B','C','C#','D','D#','E','F','F#','G','G#'];
-var flatNotes = ['A','Bb','B','C','Db','D','Eb','E','F','Gb','G','Ab'];
-
-function getRandomInt(min, max) {   // random integer function
-    return Math.floor(Math.random() * (max - min + 1)) + min;
-};
-
-var j;
-var allNotes;
-var c;
-
+// Add player score to DOM
 function displayScore() {
   scoreDisplay = document.getElementById('div1');
-  var currentScore = document.createTextNode('Score - ' + playerOneScore);
+  var currentScore = document.createTextNode('Your Score: ' + playerOneScore);
   scoreDisplay.appendChild(currentScore);
 }
 
+// Formulate the chord question and add to DOM
 function chordQuestion() {
   c = chordResult();
   console.log('chordQuestion is running');
@@ -61,6 +70,7 @@ function chordQuestion() {
   console.log(c);
 };
 
+// Add text input box and button to DOM
 function textFieldButton() {
   var textInput = document.getElementById('textBoxDiv');
   var textField = document.createElement('input');
@@ -69,10 +79,12 @@ function textFieldButton() {
   var buttonDiv = document.getElementById('submitButton');
   var theButton = document.createElement('button');
   theButton.id = 'theButton';
+  theButton.innerHTML = 'Check My Answer';
   textInput.appendChild(textField);
   buttonDiv.appendChild(theButton);
 };
 
+// Functions for major and minor chord types
 var chordBuilder = {
   buildMinorChord: function () {  // function to create a random minor chord
     var minorChord = [];
@@ -110,6 +122,7 @@ var chordBuilder = {
   }
 };
 
+// Randomly pick major or minor chord
 var chordResult = function () {  // function to randomly run either buildMajorChord or buildMinorChord
   var randomInt = getRandomInt(1,2);
   console.log('chordResult is running');
@@ -127,6 +140,59 @@ var chordResult = function () {  // function to randomly run either buildMajorCh
     }
 };
 
+// Evaluate user answer and continue gameplay
+function compareAnswer() {   // get answer from textbox, compare, return result
+    document.getElementById("theButton").addEventListener("click", function() {
+    var userAnswer = document.getElementById("textbox").value;
+    var answerInString = c.slice(0,3).join();
+    var answerInLowerCaseString = answerInString.toLocaleLowerCase();
+    var answerInLowerCaseArray = answerInLowerCaseString.split(',');
+    var userAnswerArray = userAnswer.split(',');
+    var userAnswerArrayinString = userAnswerArray.join();
+    var userAnswerInLowerCaseString = userAnswerArrayinString.toLocaleLowerCase();
+    var userAnswerInLowerCaseArray = userAnswerInLowerCaseString.split('');
+    if (userAnswerInLowerCaseString == answerInLowerCaseString) {
+      playerOneScore = playerOneScore + 1;
+      var rightOrWrong = document.createElement('p');
+      rightOrWrong.id = "rightOrWrong";
+      if (playerOneScore < 10) {
+      var responseText = document.createTextNode('You got it!  Let\s try another one.')
+    } else {
+      var responseText = document.createTextNode('BAM! You\'re the chord master.');
+    }
+      rightOrWrong.appendChild(responseText);
+      var responseDiv = document.getElementById('response');
+      responseDiv.appendChild(rightOrWrong);
+    } else if (userAnswerArray[0] != c[0] || userAnswerArray[1] != c[1] || userAnswerArray[2] != c[2]) {
+      var rightOrWrong = document.createElement('p');
+      rightOrWrong.id = "rightOrWrong";
+      var responseText = document.createTextNode('Sorry, you got that one wrong.  The correct spelling is:  ' + c[0] + ', ' + c[1] + ', ' + c[2] + '.  Let\'s try another one!');
+      rightOrWrong.appendChild(responseText);
+      var responseDiv = document.getElementById('response');
+      responseDiv.appendChild(rightOrWrong);
+    }
+    delayedClear();
+    return userAnswerArray;
+  });
+};
+
+// Add elements for DOM after user wins game
+function winGame(){
+  var winMessage = document.createElement('div');
+  winMessage.id = "wonGameMessage";
+  document.body.insertBefore(winMessage, document.body.firstChild);
+  var winningParagraph = document.createElement('p');
+  winningParagraph.id = 'winningText';
+  winningParagraph.innerHTML = 'You won!  Ready to play again?';
+  winMessage.appendChild(winningParagraph);
+  var startButton = document.createElement('button');
+  startButton.innerHTML = "Start Playing";
+  startButton.id = 'startButton';
+  winMessage.appendChild(startButton);
+  startGameOver();
+};
+
+//Clear screen between questions
 function clearBetweenQuestions() {
     var questionClear = document.getElementById("chordQuestion");
     questionClear.parentNode.removeChild(questionClear);
@@ -139,42 +205,27 @@ function clearBetweenQuestions() {
     document.getElementById("div1").innerHTML = "";
 };
 
+//Delay screen clears
 function delayedClear() {
-  timeoutClear = window.setTimeout(clearBetweenQuestions, 1500);
+  timeoutClear = window.setTimeout(clearBetweenQuestions, 2500);
   if (playerOneScore < 10) {
-    timeoutLoad = window.setTimeout(buildQuestionUI,3000)
+    timeoutLoad = window.setTimeout(buildQuestionUI,2700);
   } else if (playerOneScore = 10) {
-    console.log("You Won!")
+    timeoutLoad = window.setTimeout(winGame,2500);
   }
 };
 
-function compareAnswer() {   // get answer from textbox, compare, return result
-    document.getElementById("theButton").addEventListener("click", function() {
-    var userAnswer = document.getElementById("textbox").value;
-    // var userAnswerUpper = userAnswer.toLocaleUpperCase();
-    // var userAnswerArray = userAnswerUpper.split(',');
-    var userAnswerArray = userAnswer.split(',');
-    console.log(userAnswerArray);
-    console.log(c);
-    if (userAnswerArray[0] == c[0] && userAnswerArray[1] == c[1] && userAnswerArray[2] == c[2]) {
-      playerOneScore = playerOneScore + 1;
-      var rightOrWrong = document.createElement('p');
-      rightOrWrong.id = "rightOrWrong";
-      var responseText = document.createTextNode('You got it right!  You\'re score is now ' + playerOneScore + '. Let\'s try another!');
-      rightOrWrong.appendChild(responseText);
-      var responseDiv = document.getElementById('response');
-      responseDiv.appendChild(rightOrWrong);
-      console.log(playerOneScore);
-    } else if (userAnswerArray[0] != c[0] || userAnswerArray[1] != c[1] || userAnswerArray[2] != c[2]){
-      var rightOrWrong = document.createElement('p');
-      rightOrWrong.id = "rightOrWrong";
-      var responseText = document.createTextNode('Wrong');
-      rightOrWrong.appendChild(responseText);
-      var responseDiv = document.getElementById('response');
-      responseDiv.appendChild(rightOrWrong);
-    }
-    delayedClear();
-    return userAnswerArray;
+//Clear win screen before starting new game
+function clearWinScreen() {
+  var clearWinText = document.getElementById("wonGameMessage");
+  clearWinText.parentNode.removeChild(clearWinText);
+  playerOneScore = 0;
+  timeoutLoad = window.setTimeout(buildQuestionUI,100);
+};
+
+//Start gameplay again after win screen
+function startGameOver() {
+document.getElementById("startButton").addEventListener("click", function() {
+    clearWinScreen();
   });
 };
-// compareAnswer();
