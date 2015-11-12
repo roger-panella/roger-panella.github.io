@@ -20,16 +20,9 @@ document.getElementById("startButton").addEventListener("click", function() {
     buildQuestionUI();
 });
 
-// // function buildQuestionUI() {
-// //   chordQuestion();
-// //   textFieldButton();
-// //   compareAnswer();
-// };
-
 } //end window.onload
 
 function buildQuestionUI() {
-  // var c = chordResult();
   displayScore();
   chordQuestion();
   textFieldButton();
@@ -45,14 +38,6 @@ var flatNotes = ['A','Bb','B','C','Db','D','Eb','E','F','Gb','G','Ab'];
 function getRandomInt(min, max) {   // random integer function
     return Math.floor(Math.random() * (max - min + 1)) + min;
 };
-
-// var j = getRandomInt(1,2);
-// if (j == 1) {                 // random integer to determine whether to use sharpNotes
-//   var noteSet = sharpNotes;   // or flatNotes
-// } else if (j == 2) {
-//   var noteSet = flatNotes;
-// };
-// var allNotes = noteSet.length;
 
 var j;
 var allNotes;
