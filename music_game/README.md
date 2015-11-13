@@ -21,20 +21,23 @@ The process I followed was as follows:
 2. SASS
 3. A few HTML tags
 
-##Future improvements
+##Future Improvements
 
-###Needed before launch
+###Needed Before Launch
 
 1. The game starts by randomly picking either an array of all 12 notes with sharps, or with flats.  Then picks a random note to start the chord.  When certain random chord starting notes are picked, the game should switch to the sharp array if it had already picked the flat array.
 2. Textbox watermark to show player the accepted input format
 
-###Nice-to-haves for game improvement/expansion
+###Nice-to-Haves for Game Improvement/Expansion
 
 1. Regex or other method for allowing varied input formats from player (spaces vs. no spaces, commas vs. no commas, etc.)
 2. Expanded body of chords (7th chords, diminished chords, etc.
+3. Code refactoring (variables put into objects, for example).
 
+##Deviation from Assingment
 
-
+. The game is only one-player.  This was done because I didn't have time to make it a two-player game. Though, the game also doesn't really have a need for multi-player capability.
+.  Not a lot of objects and constructors.  These probably could have been used in the project and I should get more comfortable with them so I know when they would be useful.
 
 
 
