@@ -34,10 +34,10 @@ The process I followed was as follows:
 2. Expanded body of chords (7th chords, diminished chords, etc.
 3. Code refactoring (variables put into objects, for example).
 
-##Deviation from Assingment
+##Deviations from Assingment
 
-. The game is only one-player.  This was done because I didn't have time to make it a two-player game. Though, the game also doesn't really have a need for multi-player capability.
-.  Not a lot of objects and constructors.  These probably could have been used in the project and I should get more comfortable with them so I know when they would be useful.
+1. The game is only one-player.  This was done because I didn't have time to make it a two-player game. Though, the game also doesn't really have a need for multi-player capability.
+2. Not a lot of objects and constructors.  These probably could have been used in the project and I should get more comfortable with them so I know when they would be useful.
 
 
 
